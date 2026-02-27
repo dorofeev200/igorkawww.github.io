@@ -6,13 +6,33 @@
 <title>Premium IPTV</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial, sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial;}
 
 body{
-background: radial-gradient(circle at top, #111 0%, #000 60%);
+background:#000;
 color:white;
 text-align:center;
 overflow-x:hidden;
+}
+
+/* АНИМИРОВАННЫЙ ФОН */
+body::before{
+content:"";
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:linear-gradient(45deg,#000,#111,#001f2f,#000);
+background-size:400% 400%;
+animation:bg 12s ease infinite;
+z-index:-1;
+}
+
+@keyframes bg{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
 }
 
 /* HERO */
@@ -60,14 +80,9 @@ box-shadow:0 0 20px #00f2ff;
 transform:scale(1.1);
 }
 
-/* FEATURES */
+/* Карточки */
 .section{
 padding:80px 20px;
-}
-
-.section h2{
-font-size:32px;
-margin-bottom:40px;
 }
 
 .features{
@@ -91,11 +106,44 @@ transform:translateY(-10px);
 box-shadow:0 0 25px #00f2ff;
 }
 
-/* BONUS */
-.bonus{
+/* КНОПКА ПОМОЩИ */
+.help-btn{
+position:fixed;
+bottom:25px;
+right:25px;
+background:#00f2ff;
+color:black;
+padding:15px 20px;
+border-radius:50px;
+font-weight:bold;
+cursor:pointer;
+box-shadow:0 0 20px #00f2ff;
+z-index:1000;
+}
+
+/* POPUP */
+.popup{
+display:none;
+position:fixed;
+bottom:90px;
+right:25px;
 background:#111;
-padding:60px 20px;
-margin:50px 0;
+padding:20px;
+border-radius:15px;
+width:260px;
+box-shadow:0 0 20px #00f2ff;
+z-index:1000;
+}
+
+.popup a{
+display:block;
+margin-top:15px;
+padding:10px;
+background:gold;
+color:black;
+text-decoration:none;
+border-radius:20px;
+font-weight:bold;
 }
 
 footer{
@@ -104,7 +152,6 @@ opacity:0.5;
 font-size:14px;
 }
 
-/* MOBILE */
 @media(max-width:768px){
 .hero h1{font-size:32px;}
 .features{flex-direction:column;align-items:center;}
@@ -126,45 +173,33 @@ font-size:14px;
 <h2>🔥 Почему выбирают нас?</h2>
 
 <div class="features">
-
-<div class="card">
-<h3>⚡ Стабильность</h3>
-<p>Мощные сервера без лагов</p>
+<div class="card"><h3>⚡ Стабильность</h3><p>Мощные сервера без лагов</p></div>
+<div class="card"><h3>📺 Качество</h3><p>HD / 4K</p></div>
+<div class="card"><h3>📱 Устройства</h3><p>TV, Android, ПК</p></div>
+<div class="card"><h3>🎬 Контент</h3><p>Фильмы и спорт</p></div>
 </div>
-
-<div class="card">
-<h3>📺 Качество</h3>
-<p>HD / Full HD / 4K</p>
-</div>
-
-<div class="card">
-<h3>📱 Устройства</h3>
-<p>Smart TV, Android, ПК</p>
-</div>
-
-<div class="card">
-<h3>🎬 Контент</h3>
-<p>Фильмы, сериалы, спорт</p>
-</div>
-
-</div>
-</div>
-
-<div class="bonus">
-<h2>🎁 Бонус</h2>
-<p>При покупке от 2 месяцев —</p>
-<h3 style="color:gold;">Плагин Lampa 4K в подарок</h3>
-<br>
-<a href="lampa.html" class="btn gold">🔥 Подробнее</a>
-</div>
-
-<div class="section">
-<a href="https://t.me/Vip_kanal_TVV" class="btn neon">👤 Связаться с админом</a>
 </div>
 
 <footer>
 © 2026 igorkawww IPTV
 </footer>
+
+<!-- КНОПКА ПОМОЩИ -->
+<div class="help-btn" onclick="togglePopup()">💬 Нужна помощь?</div>
+
+<!-- POPUP -->
+<div class="popup" id="popup">
+<b>Есть вопросы?</b>
+<p>Напишите администратору и получите ответ быстро.</p>
+<a href="https://t.me/Vip_kanal_TVV">👤 Написать в Telegram</a>
+</div>
+
+<script>
+function togglePopup(){
+var popup = document.getElementById("popup");
+popup.style.display = popup.style.display === "block" ? "none" : "block";
+}
+</script>
 
 </body>
 </html>
