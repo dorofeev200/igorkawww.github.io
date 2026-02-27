@@ -198,18 +198,28 @@ font-size:14px;
 position:fixed;
 bottom:30px;
 right:30px;
-width:65px;
-height:65px;
+width:60px;
+height:60px;
 border-radius:50%;
-background:linear-gradient(135deg,#229ED9,#1c8ac9);
+background:linear-gradient(135deg,#5f7cff,#7f53ff);
 display:flex;
 align-items:center;
 justify-content:center;
-box-shadow:0 10px 25px rgba(34,158,217,0.5);
 cursor:pointer;
 transition:0.4s;
-z-index:999;
-animation:pulse 2s infinite;
+z-index:1000;
+box-shadow:0 0 25px rgba(127,83,255,0.6);
+}
+
+.telegram-float:hover{
+transform:scale(1.1);
+box-shadow:0 0 40px rgba(127,83,255,0.9);
+}
+
+.telegram-float svg{
+width:28px;
+height:28px;
+fill:white;
 }
 
 .telegram-float:hover{
