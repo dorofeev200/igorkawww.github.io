@@ -193,6 +193,40 @@ font-size:14px;
 .section h2{font-size:28px}
 .stats{gap:30px}
 }
+/* TELEGRAM FLOAT BUTTON */
+.telegram-float{
+position:fixed;
+bottom:30px;
+right:30px;
+width:65px;
+height:65px;
+border-radius:50%;
+background:linear-gradient(135deg,#229ED9,#1c8ac9);
+display:flex;
+align-items:center;
+justify-content:center;
+box-shadow:0 10px 25px rgba(34,158,217,0.5);
+cursor:pointer;
+transition:0.4s;
+z-index:999;
+animation:pulse 2s infinite;
+}
+
+.telegram-float:hover{
+transform:scale(1.1);
+box-shadow:0 15px 35px rgba(34,158,217,0.8);
+}
+
+.telegram-float img{
+width:32px;
+height:32px;
+}
+
+@keyframes pulse{
+0%{box-shadow:0 0 0 0 rgba(34,158,217,0.6);}
+70%{box-shadow:0 0 0 15px rgba(34,158,217,0);}
+100%{box-shadow:0 0 0 0 rgba(34,158,217,0);}
+}  
 </style>
 </head>
 
