@@ -5,122 +5,241 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Premium IPTV</title>
 
-<link rel="stylesheet" href="style.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+body{
+background:#000;
+color:white;
+text-align:center;
+overflow-x:hidden;
+}
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+/* ФОН */
+body::before{
+content:"";
+position:fixed;
+width:100%;height:100%;
+background:linear-gradient(45deg,#000,#001f2f,#000,#111);
+background-size:400% 400%;
+animation:bg 15s infinite ease;
+z-index:-1;
+}
+@keyframes bg{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+/* HERO */
+.hero{
+padding:120px 20px 80px;
+max-width:1100px;
+margin:0 auto;
+}
+.hero h1{
+font-size:48px;
+background:linear-gradient(90deg,gold,#00f2ff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+.hero p{
+margin:20px 0;
+font-size:20px;
+opacity:0.9;
+}
+
+/* BUTTONS */
+.btn{
+display:inline-block;
+padding:15px 35px;
+margin:10px;
+border-radius:30px;
+font-weight:bold;
+text-decoration:none;
+transition:0.3s;
+}
+.gold{background:gold;color:black;box-shadow:0 0 20px gold}
+.neon{background:#00f2ff;color:black;box-shadow:0 0 20px #00f2ff}
+.btn:hover{transform:scale(1.1)}
+
+/* СТАТИСТИКА */
+.stats{
+display:flex;
+justify-content:center;
+gap:60px;
+padding:60px 20px;
+flex-wrap:wrap;
+}
+.stat{
+text-align:center;
+}
+.stat h2{
+font-size:36px;
+color:#00f2ff;
+}
+.stat p{
+opacity:0.7;
+}
+
+/* ТАРИФЫ */
+.section{
+padding:80px 20px;
+max-width:1200px;
+margin:0 auto;
+}
+.section h2{
+margin-bottom:40px;
+font-size:32px;
+}
+
+.cards{
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+gap:30px;
+}
+
+.card{
+background:#111;
+padding:30px;
+width:260px;
+border-radius:20px;
+transition:0.3s;
+border:1px solid #222;
+text-align:center;
+}
+
+.card:hover{
+transform:translateY(-10px);
+box-shadow:0 0 25px #00f2ff;
+}
+
+.highlight{
+border:2px solid gold;
+box-shadow:0 0 25px gold;
+}
+
+.price{
+font-size:26px;
+margin:15px 0;
+color:gold;
+}
+
+/* ВИДЕООБЗОРЫ */
+.video-card{
+background:#111;
+width:260px;
+height:160px;
+border-radius:20px;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+transition:0.3s;
+border:1px solid #222;
+}
+
+.video-card:hover{
+transform:translateY(-10px);
+box-shadow:0 0 25px #00f2ff;
+}
+
+.video-title{
+font-size:18px;
+font-weight:bold;
+}
+
+/* ОТЗЫВЫ */
+.review{
+background:#111;
+padding:25px;
+border-radius:15px;
+margin:20px auto;
+max-width:500px;
+}
+
+/* FOOTER */
+footer{
+padding:40px 20px;
+opacity:0.6;
+}
+
+/* МОБИЛЬНАЯ */
+@media(max-width:768px){
+.hero h1{font-size:32px}
+.stats{gap:20px}
+}
+</style>
 </head>
 
 <body>
 
-<!-- HEADER -->
-<header class="header">
-    <div class="logo">PREMIUM IPTV</div>
-    <nav class="nav">
-        <a href="payment.html">Оплата</a>
-        <a href="test.html">Тест</a>
-        <a href="https://vkvideo.ru/video-145539285_456240212" target="_blank">Обзор VK</a>
-        <a href="https://rutube.ru/video/8f243e078d480f7422fc023906d1fd6e/" target="_blank">Обзор RuTube</a>
-        <a href="https://evgeshkawww.github.io/iptv/IPTV/kino.html" target="_blank">Lampa 4K</a>
-    </nav>
-</header>
+<div class="hero">
+<h1>📡 PREMIUM IPTV</h1>
+<p>1000+ каналов • HD / 4K • Без лагов</p>
 
-<!-- HERO -->
-<section class="hero">
-    <div class="hero-content reveal">
-        <div class="badge">HD • Full HD • 4K • 1000+ каналов</div>
-        <h1>Мир премиального телевидения</h1>
-        <p>Стабильные сервера, архив передач, фильмы и сериалы. Работает на Smart TV, Android, ПК.</p>
-        <a href="payment.html" class="btn">Подключить сейчас</a>
-    </div>
-</section>
+<a href="payment.html" class="btn gold">💳 Оплатить</a>
+<a href="test.html" class="btn neon">🧪 Пройти тест</a>
+</div>
 
-<!-- КАНАЛЫ -->
-<section class="section reveal">
-    <h2>Популярные категории</h2>
-    <div class="grid">
+<div class="stats">
+<div class="stat"><h2>1000+</h2><p>Каналов</p></div>
+<div class="stat"><h2>4K</h2><p>Качество</p></div>
+<div class="stat"><h2>24/7</h2><p>Поддержка</p></div>
+</div>
 
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1601933470928-cba0c0f2f4d4?q=80&w=1200&auto=format&fit=crop">
-            <div class="card-title">Спорт</div>
-        </div>
+<div class="section">
+<h2>💎 Тарифы</h2>
+<div class="cards">
 
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=1200&auto=format&fit=crop">
-            <div class="card-title">Фильмы</div>
-        </div>
+<div class="card">
+<h3>1 месяц</h3>
+<div class="price">370₽</div>
+<a href="payment.html" class="btn neon">Выбрать</a>
+</div>
 
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1517602302552-471fe67acf66?q=80&w=1200&auto=format&fit=crop">
-            <div class="card-title">Сериалы</div>
-        </div>
+<div class="card highlight">
+<h3>2 месяца 🔥</h3>
+<div class="price">700₽</div>
+<p>+ Lampa 4K в подарок</p>
+<a href="payment.html" class="btn gold">Выгодно</a>
+</div>
 
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1581091870627-3c1c9d7c96b2?q=80&w=1200&auto=format&fit=crop">
-            <div class="card-title">4K UHD</div>
-        </div>
+<div class="card">
+<h3>3 месяца</h3>
+<div class="price">990₽</div>
+<a href="payment.html" class="btn neon">Выбрать</a>
+</div>
 
-    </div>
-</section>
+</div>
+</div>
 
-<!-- ПАРАЛЛАКС -->
-<section class="parallax">
-    <h2>Погружение в 4K качество</h2>
-</section>
+<div class="section">
+<h2>📺 Видеообзоры и Плагин</h2>
+<div class="cards">
 
-<!-- ВИДЕООБЗОРЫ -->
-<section class="section reveal">
-    <h2>Видеообзоры и Плагин</h2>
-    <div class="grid">
+<div class="video-card" onclick="window.open('https://rutube.ru/video/8f243e078d480f7422fc023906d1fd6e/','_blank')">
+<div class="video-title">Обзор RuTube</div>
+</div>
 
-        <div class="card" onclick="window.open('https://rutube.ru/video/8f243e078d480f7422fc023906d1fd6e/','_blank')">
-            <img src="https://images.unsplash.com/photo-1590608897129-79da98d15969?q=80&w=1200&auto=format&fit=crop">
-            <div class="card-title">Обзор RuTube</div>
-        </div>
+<div class="video-card" onclick="window.open('https://vkvideo.ru/video-145539285_456240212','_blank')">
+<div class="video-title">Обзор VK</div>
+</div>
 
-        <div class="card" onclick="window.open('https://vkvideo.ru/video-145539285_456240212','_blank')">
-            <img src="https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?q=80&w=1200&auto=format&fit=crop">
-            <div class="card-title">Обзор VK</div>
-        </div>
+<div class="video-card highlight" onclick="window.open('https://evgeshkawww.github.io/iptv/IPTV/kino.html','_blank')">
+<div class="video-title">🔥 Lampa 4K</div>
+</div>
 
-        <div class="card" onclick="window.open('https://evgeshkawww.github.io/iptv/IPTV/kino.html','_blank')">
-            <img src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?q=80&w=1200&auto=format&fit=crop">
-            <div class="card-title">🔥 Lampa 4K</div>
-        </div>
+</div>
+</div>
 
-    </div>
-</section>
+<div class="section">
+<h2>🌟 Отзывы клиентов</h2>
+<div class="review">"Работает без лагов, качество огонь!"</div>
+<div class="review">"Подключили за 5 минут, всё стабильно."</div>
+</div>
 
-<!-- CTA -->
-<section class="cta reveal">
-    <h2>Подключение за 5 минут</h2>
-    <p>Оплатите тариф, отправьте чек администратору и получите плейлист сразу после подтверждения.</p>
-    <a href="payment.html" class="btn">Выбрать тариф</a>
-</section>
-
-<!-- FOOTER -->
-<footer class="footer">
-    <div class="footer-left">
-        <span>© 2026 igorkawww IPTV</span>
-    </div>
-    <div class="footer-right">
-        <a href="payment.html">Оплата</a>
-        <a href="test.html">Тест</a>
-        <a href="https://t.me/Vip_kanal_TVV" target="_blank">Поддержка</a>
-    </div>
-</footer>
-
-<script>
-window.addEventListener("scroll", function() {
-    let reveals = document.querySelectorAll(".reveal");
-    reveals.forEach(el => {
-        let windowHeight = window.innerHeight;
-        let elementTop = el.getBoundingClientRect().top;
-        if (elementTop < windowHeight - 100) {
-            el.classList.add("active");
-        }
-    });
-});
-</script>
+<footer>© 2026 igorkawww IPTV</footer>
 
 </body>
 </html>
