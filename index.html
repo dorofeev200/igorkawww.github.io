@@ -6,93 +6,88 @@
 <title>Premium IPTV</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}
+
 body{
-background:#000;
 color:white;
-text-align:center;
 overflow-x:hidden;
+background:
+linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.95)),
+url("https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=2000&auto=format&fit=crop") center/cover fixed;
 }
 
-/* ФОН */
-body::before{
-content:"";
-position:fixed;
-width:100%;height:100%;
-background:linear-gradient(45deg,#000,#001f2f,#000,#111);
-background-size:400% 400%;
-animation:bg 15s infinite ease;
-z-index:-1;
-}
-@keyframes bg{
-0%{background-position:0% 50%}
-50%{background-position:100% 50%}
-100%{background-position:0% 50%}
+/* КОНТЕЙНЕР */
+.container{
+max-width:1200px;
+margin:0 auto;
+padding:0 20px;
+text-align:center;
 }
 
 /* HERO */
 .hero{
-padding:120px 20px 80px;
-max-width:1100px;
-margin:0 auto;
+padding:140px 0 100px;
 }
+
 .hero h1{
-font-size:48px;
-background:linear-gradient(90deg,gold,#00f2ff);
+font-size:56px;
+font-weight:800;
+letter-spacing:-1px;
+background:linear-gradient(90deg,#ffffff,#b3c7ff);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 }
+
 .hero p{
-margin:20px 0;
+margin-top:20px;
 font-size:20px;
-opacity:0.9;
+color:#d0d8ff;
+max-width:700px;
+margin-left:auto;
+margin-right:auto;
 }
 
-/* BUTTONS */
+/* КНОПКИ */
 .btn{
 display:inline-block;
-padding:15px 35px;
-margin:10px;
-border-radius:30px;
-font-weight:bold;
+margin:25px 10px 0;
+padding:16px 40px;
+border-radius:40px;
+font-weight:600;
 text-decoration:none;
-transition:0.3s;
-}
-.gold{background:gold;color:black;box-shadow:0 0 20px gold}
-.neon{background:#00f2ff;color:black;box-shadow:0 0 20px #00f2ff}
-.btn:hover{transform:scale(1.1)}
-
-/* СТАТИСТИКА */
-.stats{
-display:flex;
-justify-content:center;
-gap:60px;
-padding:60px 20px;
-flex-wrap:wrap;
-}
-.stat{
-text-align:center;
-}
-.stat h2{
-font-size:36px;
-color:#00f2ff;
-}
-.stat p{
-opacity:0.7;
+transition:0.4s;
+backdrop-filter:blur(10px);
 }
 
-/* ТАРИФЫ */
+.primary{
+background:linear-gradient(135deg,#5f7cff,#7f53ff);
+box-shadow:0 10px 30px rgba(95,124,255,0.4);
+color:white;
+}
+
+.secondary{
+background:rgba(255,255,255,0.1);
+border:1px solid rgba(255,255,255,0.2);
+color:white;
+}
+
+.btn:hover{
+transform:translateY(-4px);
+}
+
+/* СЕКЦИИ */
 .section{
-padding:80px 20px;
-max-width:1200px;
-margin:0 auto;
-}
-.section h2{
-margin-bottom:40px;
-font-size:32px;
+padding:120px 0;
 }
 
-.cards{
+.section h2{
+font-size:42px;
+margin-bottom:60px;
+font-weight:700;
+}
+
+/* КАРТОЧКИ */
+.grid{
 display:flex;
 justify-content:center;
 flex-wrap:wrap;
@@ -100,146 +95,122 @@ gap:30px;
 }
 
 .card{
-background:#111;
-padding:30px;
-width:260px;
-border-radius:20px;
-transition:0.3s;
-border:1px solid #222;
-text-align:center;
-}
-
-.card:hover{
-transform:translateY(-10px);
-box-shadow:0 0 25px #00f2ff;
-}
-
-.highlight{
-border:2px solid gold;
-box-shadow:0 0 25px gold;
-}
-
-.price{
-font-size:26px;
-margin:15px 0;
-color:gold;
-}
-
-/* ВИДЕООБЗОРЫ */
-.video-card{
-background:#111;
-width:260px;
-height:160px;
-border-radius:20px;
+width:280px;
+height:180px;
+border-radius:24px;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(20px);
+border:1px solid rgba(255,255,255,0.1);
 display:flex;
 align-items:center;
 justify-content:center;
 cursor:pointer;
-transition:0.3s;
-border:1px solid #222;
+transition:0.5s;
+font-size:20px;
+font-weight:600;
 }
 
-.video-card:hover{
+.card:hover{
 transform:translateY(-10px);
-box-shadow:0 0 25px #00f2ff;
+box-shadow:0 20px 40px rgba(0,0,0,0.6);
 }
 
-.video-title{
-font-size:18px;
-font-weight:bold;
+.highlight{
+border:2px solid #7f53ff;
+box-shadow:0 0 25px rgba(127,83,255,0.6);
+}
+
+/* СТАТИСТИКА */
+.stats{
+display:flex;
+justify-content:center;
+gap:80px;
+flex-wrap:wrap;
+margin-top:60px;
+}
+
+.stat h3{
+font-size:40px;
+color:#7f53ff;
+}
+
+.stat p{
+opacity:0.7;
 }
 
 /* ОТЗЫВЫ */
 .review{
-background:#111;
-padding:25px;
-border-radius:15px;
-margin:20px auto;
-max-width:500px;
+max-width:600px;
+margin:30px auto;
+padding:30px;
+border-radius:24px;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(20px);
+border:1px solid rgba(255,255,255,0.1);
 }
 
 /* FOOTER */
 footer{
-padding:40px 20px;
-opacity:0.6;
+padding:60px 0;
+opacity:0.5;
+font-size:14px;
 }
 
 /* МОБИЛЬНАЯ */
 @media(max-width:768px){
-.hero h1{font-size:32px}
-.stats{gap:20px}
+.hero h1{font-size:36px}
+.section h2{font-size:28px}
+.stats{gap:30px}
 }
 </style>
 </head>
 
 <body>
 
-<div class="hero">
-<h1>📡 PREMIUM IPTV</h1>
-<p>1000+ каналов • HD / 4K • Без лагов</p>
+<div class="container">
 
-<a href="payment.html" class="btn gold">💳 Оплатить</a>
-<a href="test.html" class="btn neon">🧪 Пройти тест</a>
-</div>
+<div class="hero">
+<h1>PREMIUM IPTV</h1>
+<p>Погружение в мир кино. 1000+ каналов, HD / 4K качество, стабильные сервера.</p>
+
+<a href="payment.html" class="btn primary">Подключить</a>
+<a href="test.html" class="btn secondary">Пройти тест</a>
 
 <div class="stats">
-<div class="stat"><h2>1000+</h2><p>Каналов</p></div>
-<div class="stat"><h2>4K</h2><p>Качество</p></div>
-<div class="stat"><h2>24/7</h2><p>Поддержка</p></div>
+<div class="stat"><h3>1000+</h3><p>Каналов</p></div>
+<div class="stat"><h3>4K</h3><p>Качество</p></div>
+<div class="stat"><h3>24/7</h3><p>Поддержка</p></div>
+</div>
 </div>
 
 <div class="section">
-<h2>💎 Тарифы</h2>
-<div class="cards">
+<h2>Видеообзоры и Плагин</h2>
+<div class="grid">
 
-<div class="card">
-<h3>1 месяц</h3>
-<div class="price">370₽</div>
-<a href="payment.html" class="btn neon">Выбрать</a>
+<div class="card" onclick="window.open('https://rutube.ru/video/8f243e078d480f7422fc023906d1fd6e/','_blank')">
+Обзор RuTube
 </div>
 
-<div class="card highlight">
-<h3>2 месяца 🔥</h3>
-<div class="price">700₽</div>
-<p>+ Lampa 4K в подарок</p>
-<a href="payment.html" class="btn gold">Выгодно</a>
+<div class="card" onclick="window.open('https://vkvideo.ru/video-145539285_456240212','_blank')">
+Обзор VK
 </div>
 
-<div class="card">
-<h3>3 месяца</h3>
-<div class="price">990₽</div>
-<a href="payment.html" class="btn neon">Выбрать</a>
+<div class="card highlight" onclick="window.open('https://evgeshkawww.github.io/iptv/IPTV/kino.html','_blank')">
+🔥 Lampa 4K
 </div>
 
 </div>
 </div>
 
 <div class="section">
-<h2>📺 Видеообзоры и Плагин</h2>
-<div class="cards">
-
-<div class="video-card" onclick="window.open('https://rutube.ru/video/8f243e078d480f7422fc023906d1fd6e/','_blank')">
-<div class="video-title">Обзор RuTube</div>
-</div>
-
-<div class="video-card" onclick="window.open('https://vkvideo.ru/video-145539285_456240212','_blank')">
-<div class="video-title">Обзор VK</div>
-</div>
-
-<div class="video-card highlight" onclick="window.open('https://evgeshkawww.github.io/iptv/IPTV/kino.html','_blank')">
-<div class="video-title">🔥 Lampa 4K</div>
-</div>
-
-</div>
-</div>
-
-<div class="section">
-<h2>🌟 Отзывы клиентов</h2>
-<div class="review">"Работает без лагов, качество огонь!"</div>
-<div class="review">"Подключили за 5 минут, всё стабильно."</div>
+<h2>Отзывы клиентов</h2>
+<div class="review">"Лучшее IPTV, которое пробовал. Качество как в кинотеатре."</div>
+<div class="review">"Подключение за 5 минут. Всё стабильно и без лагов."</div>
 </div>
 
 <footer>© 2026 igorkawww IPTV</footer>
+
+</div>
 
 </body>
 </html>
