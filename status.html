@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>M-Online — статус сервера</title>
+<style>
+:root {
+  --bg-main: #070A18;
+  --accent: #6D8BFF;
+  --violet: #8B5CF6;
+  --accent-gradient: linear-gradient(135deg, #6D8BFF 0%, #8B5CF6 100%);
+  --text-main: #F4F6FF;
+  --text-muted: #9CA8CE;
+  --green: #34D399;
+  --red: #F87171;
+  --amber: #FBBF24;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  background-color: var(--bg-main);
+  background-image:
+    radial-gradient(at 0% 0%, rgba(109, 139, 255, 0.16) 0px, transparent 55%),
+    radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.14) 0px, transparent 55%),
+    radial-gradient(at 50% 40%, rgba(17, 24, 60, 0.6) 0px, transparent 100%);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  color: var(--text-main);
+}
+
+.status-card {
+  width: 100%;
+  max-width: 560px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 40px 32px;
+  text-align: center;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.brand {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  background: linear-gradient(90deg, #ffffff 0%, #b3c7ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+}
+
+.brand-sub {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-top: 6px;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 36px 0 20px;
+}
+
+.dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.5);
+  animation: pulse 1.6s infinite;
+}
+
+.dot.online {
+  background: var(--green);
+  box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.5);
+}
+
+.dot.offline {
+  background: var(--red);
+  box-shadow: 0 0 0 0 rgba(248, 113, 113, 0.5);
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(109, 139, 255, 0.45); }
+  70% { box-shadow: 0 0 0 14px rgba(109, 139, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(109, 139, 255, 0); }
+}
+
+.status-title {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+
+.status-title.online { color: var(--green); }
+.status-title.offline { color: var(--red); }
+.status-title.checking { color: var(--amber); }
+
+.status-desc {
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.meta {
+  margin-top: 26px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 12px;
+  color: var(--text-muted);
+  display: grid;
+  gap: 5px;
+}
+
+.meta b { color: var(--text-soft, #C7D2EF); font-weight: 600; }
+
+.actions {
+  margin-top: 26px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 20px;
+  border-radius: 40px;
+  font-weight: 700;
+  font-size: 13px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.btn:hover { transform: translateY(-1px); background: rgba(255, 255, 255, 0.12); }
+
+.btn-primary {
+  background: var(--accent-gradient);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(109, 139, 255, 0.35);
+}
+
+.btn-primary:hover { background: var(--accent-gradient); }
+
+.status-url {
+  margin-top: 18px;
+  font-size: 11px;
+  color: var(--text-muted);
+  word-break: break-all;
+}
+</style>
+</head>
+<body>
+  <div class="status-card">
+    <div class="brand">M-ONLINE</div>
+    <div class="brand-sub">Статус плагина и сервера</div>
+
+    <div class="status-indicator">
+      <div class="dot" id="dot"></div>
+      <div class="status-title checking" id="title">Проверка…</div>
+    </div>
+    <div class="status-desc" id="desc">Проверяем доступность сервера…</div>
+
+    <div class="meta">
+      <div>Сервис: <b id="svc">—</b></div>
+      <div>Аптайм: <b id="uptime">—</b></div>
+      <div>Время сервера: <b id="srvtime">—</b></div>
+      <div>Последняя проверка: <b id="lastcheck">—</b></div>
+    </div>
+
+    <div class="actions">
+      <a class="btn btn-primary" href="https://dorofeev200.github.io/igorkawww.github.io/kino.html" target="_blank" rel="noopener">Как добавить плагин</a>
+      <a class="btn" href="http://bylampa.online" target="_blank" rel="noopener">Официальный сайт Lampa</a>
+    </div>
+
+    <div class="status-url" id="urlLabel"></div>
+  </div>
+
+<script>
+(function () {
+  'use strict';
+  // Единая точка проверки: публичный статус-эндпоинт (CORS *, без подписки).
+  var TARGET = 'https://plugin.maniya-kvn.online/api/public/status';
+  var q = new URLSearchParams(location.search);
+  if (q.get('target')) TARGET = q.get('target');
+
+  var $ = function (id) { return document.getElementById(id); };
+  var dot = $('dot'), title = $('title'), desc = $('desc'),
+      svc = $('svc'), uptime = $('uptime'), srvtime = $('srvtime'), lastcheck = $('lastcheck');
+
+  $('urlLabel').textContent = TARGET;
+
+  function setStatus(kind, label, description) {
+    dot.className = 'dot ' + kind;
+    title.className = 'status-title ' + kind;
+    title.textContent = label;
+    desc.textContent = description || '';
+  }
+
+  function fmtUptime(ms) {
+    if (ms == null || !isFinite(ms)) return '—';
+    var s = Math.floor(ms / 1000);
+    var d = Math.floor(s / 86400); s -= d * 86400;
+    var h = Math.floor(s / 3600); s -= h * 3600;
+    var m = Math.floor(s / 60);
+    if (d > 0) return d + ' д ' + h + ' ч';
+    if (h > 0) return h + ' ч ' + m + ' мин';
+    return m + ' мин';
+  }
+
+  function fmtTime(iso) {
+    if (!iso) return '—';
+    try { return new Date(iso).toLocaleString('ru-RU'); } catch (e) { return iso; }
+  }
+
+  function check() {
+    var started = Date.now();
+    var controller = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+    var timer = setTimeout(function () {
+      if (controller) controller.abort();
+      finish(false, started, null);
+    }, 10000);
+
+    function done(data) {
+      clearTimeout(timer);
+      finish(data != null && data.ok, started, data);
+    }
+
+    var p = fetch(TARGET, { cache: 'no-store', ...(controller ? { signal: controller.signal } : {}) });
+    p.then(function (r) {
+      if (!r.ok) return r.text().then(function () { return null; });
+      return r.json().catch(function () { return null; });
+    }).then(done).catch(function () { clearTimeout(timer); finish(false, started, null); });
+  }
+
+  function finish(okFlag, started, data) {
+    lastcheck.textContent = new Date().toLocaleString('ru-RU');
+    if (okFlag && data && data.ok) {
+      setStatus('online', 'Maniya Online', 'Сервер в сети, сервис работает.');
+      svc.textContent = data.service || 'maniya-online';
+      uptime.textContent = fmtUptime(data.uptime_ms);
+      srvtime.textContent = fmtTime(data.ts);
+    } else {
+      setStatus('offline', 'Maniya Offline', 'Сервер недоступен. Проверьте соединение и повторите позже.');
+      svc.textContent = '—';
+      uptime.textContent = '—';
+      srvtime.textContent = '—';
+    }
+  }
+
+  check();
+  setInterval(check, 15000);
+})();
+</script>
+</body>
+</html>
