@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>M-Online — установка плагина Lampa</title>
+
+<style>
+:root {
+  --bg-main: #070A18;
+  --bg-card: rgba(255, 255, 255, 0.05);
+  --bg-card-hover: rgba(139, 92, 246, 0.10);
+  --bg-inner: rgba(255, 255, 255, 0.04);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-active: rgba(109, 139, 255, 0.45);
+  --accent: #6D8BFF;
+  --violet: #8B5CF6;
+  --accent-gradient: linear-gradient(135deg, #6D8BFF 0%, #8B5CF6 100%);
+  --text-main: #F4F6FF;
+  --text-muted: #9CA8CE;
+  --text-soft: #C7D2EF;
+  --radius-xl: 24px;
+  --radius-lg: 16px;
+  --radius-md: 12px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  background-color: var(--bg-main);
+  background-image:
+    radial-gradient(at 0% 0%, rgba(109, 139, 255, 0.14) 0px, transparent 55%),
+    radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.12) 0px, transparent 55%),
+    radial-gradient(at 50% 45%, rgba(17, 24, 60, 0.6) 0px, transparent 100%);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  color: var(--text-main);
+  padding: 30px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 980px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.glass-card {
+  position: relative;
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 28px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* HEADER */
+.simple-header {
+  text-align: center;
+  padding: 36px 20px 30px;
+}
+
+.simple-header .main-title {
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  background: linear-gradient(90deg, #ffffff 0%, #b3c7ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+}
+
+.simple-header .sub {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 6px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.header-cta {
+  margin-top: 22px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 40px;
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.btn-primary {
+  color: #fff;
+  background: var(--accent-gradient);
+  box-shadow: 0 8px 24px rgba(109, 139, 255, 0.35);
+}
+
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(139, 92, 246, 0.45); }
+
+.btn-ghost {
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.btn-ghost:hover { transform: translateY(-2px); background: rgba(255, 255, 255, 0.12); }
+
+/* MOVIES SECTION */
+.movies-sec { position: relative; overflow: hidden; }
+.movies-top { margin-bottom: 18px; }
+
+.sec-tag {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--accent);
+  margin-bottom: 4px;
+  font-weight: 700;
+}
+
+.sec-h {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 4px;
+  background: linear-gradient(90deg, #fff, #b3c7ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.sec-p { font-size: 13px; color: var(--text-muted); }
+
+.movies-scroll {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  border-radius: var(--radius-lg);
+  padding: 6px 2px;
+}
+
+.movies-track {
+  display: flex;
+  gap: 14px;
+  width: max-content;
+  animation: scrollMovies 60s linear infinite;
+}
+
+.movies-scroll:hover .movies-track { animation-play-state: paused; }
+
+@keyframes scrollMovies {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.mv {
+  width: 150px;
+  flex-shrink: 0;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.25s ease;
+}
+
+.mv:hover { transform: translateY(-4px) scale(1.02); }
+
+.mv-poster {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  aspect-ratio: 2 / 3;
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+}
+
+.mv-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.mv-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 9px;
+  border-radius: 8px;
+  color: #fff;
+  background: var(--accent-gradient);
+  box-shadow: 0 4px 12px rgba(109, 139, 255, 0.45);
+}
+
+.mv-title {
+  margin-top: 9px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-soft);
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.7em;
+}
+
+/* SERVICES */
+.badge-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--accent);
+  border: 1px solid rgba(109, 139, 255, 0.35);
+  background: rgba(109, 139, 255, 0.08);
+  padding: 5px 13px;
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px;
+}
+
+.service-card {
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-inner);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  background: var(--bg-card-hover);
+  border-color: rgba(109, 139, 255, 0.45);
+  box-shadow: 0 10px 25px rgba(109, 139, 255, 0.15);
+}
+
+.service-logo { width: 100%; max-height: 46px; object-fit: contain; }
+.service-name { font-size: 13px; font-weight: 600; color: var(--text-main); }
+
+/* TV COMPAT BOX */
+.tv-compat-box {
+  margin-top: 20px;
+  padding: 18px 22px;
+  background: rgba(17, 24, 60, 0.6);
+  border: 1px solid rgba(109, 139, 255, 0.25);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius-lg);
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--text-soft);
+  box-shadow: inset 0 0 20px rgba(109, 139, 255, 0.06);
+}
+
+.tv-compat-box strong { color: #fff; }
+.tv-compat-box code {
+  background: #060A16;
+  border: 1px solid rgba(109, 139, 255, 0.35);
+  padding: 3px 8px;
+  border-radius: 6px;
+  color: var(--accent);
+  font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+  font-weight: 700;
+  word-break: break-all;
+}
+
+/* INSTRUCTION */
+.instruction-header { margin-bottom: 20px; }
+
+.instruction-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.4;
+  margin-top: 6px;
+}
+
+.instruction-steps { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+
+.step-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--bg-inner);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  transition: all 0.2s ease;
+}
+
+.step-card:hover {
+  background: var(--bg-card-hover);
+  border-color: rgba(109, 139, 255, 0.4);
+  transform: translateX(4px);
+}
+
+.step-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(109, 139, 255, 0.14);
+  border: 1px solid var(--border-active);
+  color: #A5B8FF;
+  font-weight: 800;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.step-text { font-size: 14px; line-height: 1.5; color: var(--text-main); }
+.step-text strong { color: #fff; }
+.step-text code {
+  background: #060A16;
+  border: 1px solid rgba(109, 139, 255, 0.35);
+  padding: 2px 7px;
+  border-radius: 6px;
+  color: var(--accent);
+  font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+  font-weight: 700;
+  font-size: 13px;
+  word-break: break-all;
+}
+
+/* ADDRESS BOX */
+.address-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #060A16;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-lg);
+  padding: 8px 10px 8px 18px;
+  margin-bottom: 20px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.address-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.address-val {
+  font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.5px;
+  word-break: break-all;
+}
+
+.copy-btn {
+  background: rgba(109, 139, 255, 0.12);
+  border: 1px solid rgba(109, 139, 255, 0.4);
+  color: var(--accent);
+  padding: 9px 18px;
+  border-radius: 10px;
+  font-size: 12.5px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.copy-btn:hover { background: rgba(109, 139, 255, 0.28); transform: translateY(-1px); }
+
+/* DOWNLOAD BUTTONS */
+.buttons-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 14px;
+}
+
+.btn-download {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 18px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  border: 1px solid transparent;
+}
+
+.btn-lampa { color: #fff; background: var(--accent-gradient); box-shadow: 0 8px 22px rgba(109, 139, 255, 0.3); }
+.btn-lampa:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(139, 92, 246, 0.4); }
+
+.btn-mx {
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+.btn-mx:hover { transform: translateY(-2px); background: rgba(255, 255, 255, 0.12); }
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 34px 0 6px;
+  opacity: 0.55;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+footer a { color: var(--text-soft); text-decoration: none; }
+footer a:hover { color: #fff; }
+
+@media (max-width: 560px) {
+  .simple-header .main-title { font-size: 26px; }
+  .buttons-group { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <header class="glass-card simple-header">
+    <div class="main-title">M-Online</div>
+    <div class="sub">Lampa-плагин • кинотеатры в 4K</div>
+    <div class="header-cta">
+      <a class="btn btn-primary" href="https://t.me/maniya_online_bot" target="_blank" rel="noopener">⚡ Получить ссылку плагина</a>
+      <a class="btn btn-ghost" href="index.html">🏠 На главную</a>
+    </div>
+  </header>
+
+  <!-- MOVIES SECTION -->
+  <section class="glass-card movies-sec">
+    <div class="movies-top">
+      <div class="sec-tag">Кинотеатр</div>
+      <div class="sec-h">Сейчас у нас</div>
+      <p class="sec-p">новинки в отличном качестве!</p>
+    </div>
+    <div class="movies-scroll" id="mv-list">
+      <div style="color:var(--text-muted); font-size:13px; padding:40px; text-align:center">🎬 Загрузка...</div>
+    </div>
+  </section>
+
+  <!-- RUSSIAN SERVICES -->
+  <section class="glass-card services-section">
+    <span class="badge-tag">русские кинотеатры</span>
+    <div class="services-grid" id="russian-services"></div>
+  </section>
+
+  <!-- FOREIGN SERVICES -->
+  <section class="glass-card services-section">
+    <span class="badge-tag">иностранные кинотеатры</span>
+    <div class="services-grid" id="foreign-services"></div>
+
+    <div class="tv-compat-box">
+      💡 <strong>Для Samsung / LG / Hisense:</strong> установите <strong>Lampa Player</strong> (Media Station X) из магазина приложений телевизора →
+      откройте <strong>Расширения → Добавить плагин</strong> → вставьте вашу личную ссылку плагина из бота →
+      включите плагин и следуйте инструкции ниже!
+    </div>
+  </section>
+
+  <!-- INSTRUCTION -->
+  <section class="glass-card instruction">
+    <span class="badge-tag">инструкция</span>
+
+    <div class="instruction-header">
+      <div class="instruction-title">Установка плагина M-Online в Lampa</div>
+      <p style="font-size: 13px; color: #F87171; margin-top: 6px; font-weight: 600;">
+        ⚠️ Личная ссылка плагина — только у вас: её присылает бот M-Online по кнопке «🔗 Получить Lampa».
+      </p>
+    </div>
+
+    <div class="instruction-steps">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div class="step-text"><strong>Настройки → Расширения → Добавить плагин</strong> → вставьте вашу личную ссылку (из бота M-Online) и нажмите «Добавить».</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-text"><strong>Настройки → Плеер → Тип плеера: Встроенный</strong>. Качество (до <strong>4K</strong>) выбирается в плеере при воспроизведении.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div class="step-text">Плагин появится в списке расширений — <strong>включите его</strong>. Откройте заново подборки или проект — источники M-Online уже готовы к просмотру.</div>
+      </div>
+    </div>
+
+    <!-- Адрес сервера -->
+    <div class="address-box">
+      <div>
+        <div class="address-label">Адрес сервера M-Online</div>
+        <div class="address-val" id="startUrl">https://plugin.maniya-kvn.online</div>
+      </div>
+      <button class="copy-btn" onclick="copyAddress()">Копировать</button>
+    </div>
+
+    <!-- Кнопки загрузки -->
+    <div class="buttons-group">
+      <a class="btn-download btn-lampa" href="https://dl.dropbox.com/scl/fi/hxpjkagv92gfq2g0y26nr/LAMPA-1.13.0-Clone-Un.apk?rlkey=4e0x5liztw6xnfn5ufdci4p84&dl=0" target="_blank" rel="noopener">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        Скачать Lampa (Android)
+      </a>
+      <a class="btn-download btn-mx" href="https://dl.dropbox.com/scl/fi/xknj7vunp90wxe3bom9ot/MX_Player_v2_6_3_Offline_arm7-arm64.apk?rlkey=y6ogo45cn8v0fdg21lfcz77z7" target="_blank" rel="noopener">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        Скачать MX Player
+      </a>
+    </div>
+  </section>
+
+  <footer>© M-Online 2026 • Каталог сервисов • <a href="index.html">На главную</a></footer>
+</div>
+
+<script>
+// ===== Копирование адреса сервера =====
+function copyAddress() {
+  const text = document.getElementById('startUrl').innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    btn.innerText = 'Скопировано! ✓';
+    btn.style.color = '#34D399';
+    btn.style.borderColor = '#34D399';
+    setTimeout(() => {
+      btn.innerText = 'Копировать';
+      btn.style.color = '';
+      btn.style.borderColor = '';
+    }, 2000);
+  });
+}
+
+// ===== Карусель фильмов — данные из нашего API (картинки через наш relay) =====
+const posterUrl = 'https://plugin.maniya-kvn.online/api/public/posters';
+
+function escapeHtml(value) {
+  return String(value || '').replace(/[&<>"']/g, (c) => (
+    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+  ));
+}
+
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+function initMovies(items) {
+  const container = document.getElementById('mv-list');
+  if (!container) return;
+  if (!items || items.length === 0) {
+    container.innerHTML = '<div style="color:var(--text-muted); font-size:13px; padding:40px; text-align:center">🎬 Нет фильмов для отображения</div>';
+    return;
+  }
+
+  items = shuffleArray(items);
+  const track = document.createElement('div');
+  track.className = 'movies-track';
+
+  // Клонируем ×4 для бесшовной ленты; анимация сдвигает ровно на 50% (два набора).
+  for (let repeat = 0; repeat < 2; repeat++) {
+    items.forEach((movie) => {
+      const card = document.createElement('div');
+      card.className = 'mv';
+      card.innerHTML =
+        '<div class="mv-poster">' +
+        '<img src="' + escapeHtml(movie.poster) + '" alt="' + escapeHtml(movie.title) + '" loading="lazy" ' +
+        'onerror="this.style.background=\'linear-gradient(135deg,#6D8BFF,#8B5CF6)\'">' +
+        (movie.badge ? '<div class="mv-badge">' + escapeHtml(movie.badge) + '</div>' : '') +
+        '</div>' +
+        '<div class="mv-title">' + escapeHtml(movie.title) + '</div>';
+      track.appendChild(card);
+    });
+  }
+
+  container.innerHTML = '';
+  container.appendChild(track);
+}
+
+function updateMovies() {
+  fetch(posterUrl, { cache: 'no-cache' })
+    .then((r) => (r.ok ? r.json() : Promise.reject(new Error('posters status ' + r.status))))
+    .then((data) => initMovies(data && data.items))
+    .catch(() => {
+      const c = document.getElementById('mv-list');
+      if (c) c.innerHTML = '<div style="color:var(--text-muted); font-size:13px; padding:40px; text-align:center">⚠️ Карусель сейчас недоступна — загляните позже</div>';
+    });
+}
+
+// ===== Сервисы =====
+const russianServices = [
+  { name: 'Start', url: 'https://start.ru', logo: 'https://upload.wikimedia.org/wikipedia/commons/6/67/START_logo.svg' },
+  { name: 'Premier', url: 'https://premier.one', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PREMIER_logo.svg/1280px-PREMIER_logo.svg.png' },
+  { name: 'KION', url: 'https://kion.ru', logo: 'https://upload.wikimedia.org/wikipedia/commons/d/dd/Kion_Group_logo.svg' },
+  { name: 'ИВИ', url: 'https://ivi.ru', logo: 'https://upload.wikimedia.org/wikipedia/commons/5/55/Ivi_logo.svg' },
+  { name: 'Okko', url: 'https://okko.tv', logo: 'https://static.tildacdn.com/tild3535-6436-4834-a230-353339643333/Logo.png' },
+  { name: 'Wink', url: 'https://wink.ru', logo: 'https://upload.wikimedia.org/wikipedia/commons/8/85/Wink_Logo.svg' },
+  { name: 'КиноПоиск', url: 'https://kinopoisk.ru', logo: 'https://upload.wikimedia.org/wikipedia/commons/c/c1/Kinopoisk_colored_logo_%282021-present%29.svg' },
+  { name: 'CTC', url: 'https://ctc.ru', logo: 'https://papik.pro/uploads/posts/2021-11/1636127166_42-papik-pro-p-sts-logotip-foto-45.jpg' },
+  { name: 'ТНТ', url: 'https://tnt-online.ru', logo: 'https://i1.wp.com/amiel.club/uploads/posts/2022-03/1647616229_25-amiel-club-p-kartinki-tnt-28.png?ssl=1' }
+];
+
+const foreignServices = [
+  { name: 'Netflix', url: 'https://netflix.com', logo: 'https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg' },
+  { name: 'Apple TV+', url: 'https://tv.apple.com', logo: 'https://img.huffingtonpost.com/asset/5d0138d82100003711e7edfa.jpeg?ops=1200_630' },
+  { name: 'Prime Video', url: 'https://primevideo.com', logo: 'https://m.media-amazon.com/images/G/51/marketing/prime/2022PrimeBrand/Logos/Prime_Logo_RGB_Prime_Blue_MASTER._CB542735254_.png' },
+  { name: 'Disney+', url: 'https://disneyplus.com', logo: 'https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg' },
+  { name: 'HBO Max', url: 'https://max.com', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Max_logo.svg/1280px-Max_logo.svg.png' },
+  { name: 'Paramount+', url: 'https://paramountplus.com', logo: 'https://www.getwizer.com/wp-content/uploads/2024/01/Paramount-Logo-2048x1868.png' },
+  { name: 'MGM+', url: 'https://mgmplus.com', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/MGM%2B_logo.svg/1280px-MGM%2B_logo.svg.png' }
+];
+
+function renderServices(services, containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = services.map((service) =>
+    '<div class="service-card" onclick="window.open(\'' + service.url + '\',\'_blank\')">' +
+    '<img class="service-logo" src="' + service.logo + '" alt="' + service.name + '" loading="lazy" ' +
+    'onerror="this.src=\'https://placehold.co/200x80/0f172a/ffffff?text=' + encodeURIComponent(service.name) + '\'">' +
+    '<div class="service-name">' + service.name + '</div>' +
+    '</div>'
+  ).join('');
+}
+
+// ===== Перезапуск анимации ленты при возврате на вкладку =====
+function resumeCarouselAnimation() {
+  const track = document.querySelector('.movies-track');
+  if (track) {
+    track.style.animation = 'none';
+    track.offsetHeight;
+    track.style.animation = '';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderServices(russianServices, 'russian-services');
+  renderServices(foreignServices, 'foreign-services');
+  updateMovies();
+  setInterval(updateMovies, 1800000);
+});
+
+document.addEventListener('visibilitychange', () => { if (!document.hidden) setTimeout(resumeCarouselAnimation, 100); });
+window.addEventListener('focus', () => setTimeout(resumeCarouselAnimation, 100));
+</script>
+</body>
+</html>
