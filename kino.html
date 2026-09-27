@@ -430,6 +430,58 @@ body {
 }
 .btn-mx:hover { transform: translateY(-2px); background: rgba(255, 255, 255, 0.12); }
 
+.btn-torr {
+  color: #fff;
+  background: linear-gradient(135deg, #34D399 0%, #059669 100%);
+  box-shadow: 0 8px 22px rgba(16, 185, 129, 0.28);
+}
+.btn-torr:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(16, 185, 129, 0.45); }
+
+.btn-col { display: flex; flex-direction: column; gap: 8px; }
+
+.btn-note {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.35;
+}
+
+/* PLUGINS ACCORDION */
+.details-full details {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.details-full summary {
+  list-style: none;
+  text-align: center;
+  cursor: pointer;
+  color: var(--accent);
+  font-weight: 800;
+  font-size: 16px;
+  padding: 16px;
+  background: rgba(109, 139, 255, 0.08);
+  border: 1px solid var(--border-active);
+  border-radius: var(--radius-lg);
+  transition: all 0.25s ease;
+}
+
+.details-full summary:hover { background: rgba(109, 139, 255, 0.18); }
+.details-full summary::-webkit-details-marker { display: none; }
+.details-full summary::marker { content: ''; }
+
+.details-full iframe {
+  display: block;
+  width: 100%;
+  height: 0;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  margin-top: 16px;
+  transition: height 0.35s ease;
+}
+
+.details-full details[open] iframe { height: 80vh; }
+
 /* FOOTER */
 footer {
   text-align: center;
@@ -529,15 +581,32 @@ footer a:hover { color: #fff; }
 
     <!-- Кнопки загрузки -->
     <div class="buttons-group">
-      <a class="btn-download btn-lampa" href="https://dl.dropbox.com/scl/fi/hxpjkagv92gfq2g0y26nr/LAMPA-1.13.0-Clone-Un.apk?rlkey=4e0x5liztw6xnfn5ufdci4p84&dl=0" target="_blank" rel="noopener">
+      <a class="btn-download btn-lampa" href="files/LAMPA-1.13.1-Clone-Un.apk" download>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
         Скачать Lampa (Android)
       </a>
-      <a class="btn-download btn-mx" href="https://dl.dropbox.com/scl/fi/xknj7vunp90wxe3bom9ot/MX_Player_v2_6_3_Offline_arm7-arm64.apk?rlkey=y6ogo45cn8v0fdg21lfcz77z7" target="_blank" rel="noopener">
+
+      <div class="btn-col">
+        <a class="btn-download btn-torr" href="files/TorrServeUncensored.apk" download>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          Скачать TorrServe
+        </a>
+        <span class="btn-note">* Специальная версия, настроенная<br>именно для Lampa Uncensored</span>
+      </div>
+
+      <a class="btn-download btn-mx" href="files/MX_Player_v2_6_3_Offline_arm7-arm64.apk" download>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
         Скачать MX Player
       </a>
     </div>
+  </section>
+
+  <!-- ПЛАГИНЫ ДЛЯ LAMPA -->
+  <section class="glass-card details-full">
+    <details>
+      <summary>🧩 Плагины для LAMPA</summary>
+      <iframe src="plugins.html" title="Каталог плагинов для Lampa" loading="lazy"></iframe>
+    </details>
   </section>
 
   <footer>© M-Online 2026 • Каталог сервисов • <a href="index.html">На главную</a></footer>
